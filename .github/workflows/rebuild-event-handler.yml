@@ -17,6 +17,9 @@ jobs:
         id: pull
         run: |
           docker exec thepopebot-event-handler bash -c '
+            # Fix git ownership error in Docker container
+            git config --global --add safe.directory /app
+
             export GH_TOKEN=$(grep "^GH_TOKEN=" /app/.env | cut -d= -f2-)
             echo "${GH_TOKEN}" | gh auth login --with-token
             gh auth setup-git
@@ -75,7 +78,7 @@ jobs:
         run: |
           docker exec thepopebot-event-handler bash -c '
             rm -rf .next-new .next-old
-            NEXT_BUILD_DIR=.next-new npm run build
+            NODE_OPTIONS="--max-old-space-size=3072" NEXT_BUILD_DIR=.next-new npm run build
 
             mv .next .next-old 2>/dev/null || true
             mv .next-new .next
@@ -107,15 +110,12 @@ jobs:
           done
 
           docker exec thepopebot-event-handler bash -c '
+            git config --global --add safe.directory /app
             npm install --omit=dev
-
             rm -rf .next-new .next-old
-            NEXT_BUILD_DIR=.next-new npm run build
-
+            NODE_OPTIONS="--max-old-space-size=3072" NEXT_BUILD_DIR=.next-new npm run build
             mv .next .next-old 2>/dev/null || true
             mv .next-new .next
-
             npx pm2 restart all
-
             rm -rf .next-old
           '
