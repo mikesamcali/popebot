@@ -30,10 +30,10 @@ services:
       - /app/node_modules
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.event-handler-http.rule=Host() || Host()"
+      - "traefik.http.routers.event-handler-http.rule=Host(`${APP_HOSTNAME}`) || Host(`localhost`)"
       - traefik.http.routers.event-handler-http.entrypoints=web
       - traefik.http.routers.event-handler-http.service=event-handler
-      - "traefik.http.routers.event-handler.rule=Host() || Host()"
+      - "traefik.http.routers.event-handler.rule=Host(`${APP_HOSTNAME}`) || Host(`localhost`)"
       - traefik.http.routers.event-handler.entrypoints=websecure
       - traefik.http.routers.event-handler.tls=true
       - traefik.http.services.event-handler.loadbalancer.server.port=80
