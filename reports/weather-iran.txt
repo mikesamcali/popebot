@@ -1,0 +1,8 @@
+Current weather in Tehran, Iran:
+
+Temperature: 1°C (35°F)
+Humidity: 69%
+Wind: 8 km/h (5 mph) from WNW
+Condition: Clear
+
+Data retrieved from wttr.in.
