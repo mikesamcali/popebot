@@ -1,0 +1,1 @@
+Use Pi’s web search or API call to get the current weather in Iran (e.g., Tehran). Fetch temperature, humidity, wind, and a brief condition description. Print a short paragraph to stdout and also write the output to file reports/weather-iran.txt. This is a fresh request to ensure we have the latest data.
