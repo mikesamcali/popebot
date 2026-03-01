@@ -1,0 +1,9 @@
+{
+  "name": "playwright-skill",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Playwright browser automation skill for thepopebot Pi agent",
+  "dependencies": {
+    "playwright": "^1.51.0"
+  }
+}
