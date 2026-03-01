@@ -1,0 +1,1 @@
+{"type":"configuration","description":"Open \"config/CRONS.json\" and change the schedule for the "heartbeat" cron from "/30 * * * *" to 0 */30 * * * * (every 30 minutes). Keep all other fields unchanged.\"}
