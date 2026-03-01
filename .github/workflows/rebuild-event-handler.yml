@@ -32,17 +32,16 @@ jobs:
               exit 0
             fi
 
-            # Detect thepopebot version change from package-lock.json in git
             git show HEAD:package-lock.json > /tmp/old-lock.json 2>/dev/null || echo "{}" > /tmp/old-lock.json
             git show origin/main:package-lock.json > /tmp/new-lock.json
-            OLD_TPB=$(node -p "try{require(\"/tmp/old-lock.json\").packages[\"node_modules/thepopebot\"]?.version||\"\"}catch(e){\"\"}")
-            NEW_TPB=$(node -p "try{require(\"/tmp/new-lock.json\").packages[\"node_modules/thepopebot\"]?.version||\"\"}catch(e){\"\"}")
+            OLD_TPB=$(node -p "try{require(\"/tmp/old-lock.json\").packages[\"node_modules/thepopebot\"]?.version||\"\"}catch(e){\"\"}") 
+            NEW_TPB=$(node -p "try{require(\"/tmp/new-lock.json\").packages[\"node_modules/thepopebot\"]?.version||\"\"}catch(e){\"\"}") 
             rm -f /tmp/old-lock.json /tmp/new-lock.json
 
             git reset --hard origin/main
 
             if [ -n "$OLD_TPB" ] && [ "$OLD_TPB" != "$NEW_TPB" ]; then
-              # Version changed — run thepopebot init to scaffold new templates
+              # Version changed - run thepopebot init to scaffold new templates
               if echo "$NEW_TPB" | grep -q "-"; then
                 npx --yes "thepopebot@${NEW_TPB}" init
               else
