@@ -38,7 +38,11 @@ jobs:
 
           echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
           echo "url=$PR_URL" >> "$GITHUB_OUTPUT"
-          echo "Found PR #$PR_NUMBER"
+          echo "Found PR #$PR_NUMBER"      - name: Ensure clean working directory
+        run: |
+          git reset --hard
+          git clean -fdx
+
 
       - name: Checkout PR branch
         uses: actions/checkout@v4
